@@ -1,6 +1,6 @@
 #lang r7rs
 
-(define-library (vectors)
+(define-library (scheme vectors)
   (import (scheme base))
   (import (scheme cxr))
   ;; Constructors
