@@ -1,6 +1,6 @@
 #lang r7rs
 
-(define-library (scheme vectors)
+(define-library (scheme vector)
   (import (scheme base))
   (import (scheme cxr))
   ;; Constructors
@@ -19,5 +19,5 @@
           vector-reverse-copy! vector-unfold! vector-unfold-right!)
   ;; Conversion
   (export reverse-vector->list reverse-list->vector)
-  (include "private/include/vectors.scm"))
+  (include "private/include/vector.scm"))
 

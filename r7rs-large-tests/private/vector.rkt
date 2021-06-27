@@ -5,7 +5,7 @@
 (cond-expand
   (chicken (use test srfi-133))
   (chibi (import (scheme base) (chibi test) (vectors)))
-  (racket (import (scheme vectors) (r7rs-tests support))))
+  (racket (import (scheme vector) (r7rs-tests support))))
 
 (test-group "vectors"
   (test-group "vectors/basics"
