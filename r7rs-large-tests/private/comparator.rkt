@@ -1,7 +1,7 @@
 #lang r7rs
 
 (import (scheme base)
-        (scheme comparators)
+        (scheme comparator)
         (r7rs-tests support))
 
 (define (print x) #f)

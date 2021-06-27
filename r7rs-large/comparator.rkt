@@ -20,6 +20,6 @@
   (export hash-bound hash-salt)
   (export =? <? >? <=? >=?)
   (export comparator-if<=>)
-  (include "private/include/comparators/comparators-impl.scm")
-  (include "private/include/comparators/default.scm"))
+  (include "private/include/comparator/comparator-impl.scm")
+  (include "private/include/comparator/default.scm"))
 
