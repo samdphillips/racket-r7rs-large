@@ -1,7 +1,8 @@
 #lang r7rs
 
 (define-library (scheme list)
-  (import (scheme base))
+  (import (scheme base)
+          (scheme cxr))
   (export xcons tree-copy make-list list-tabulate cons* list-copy
           proper-list? circular-list? dotted-list? not-pair? null-list? list=
           circular-list length+
@@ -32,6 +33,7 @@
           lset<= lset= lset-adjoin
           lset-union  lset-intersection  lset-difference  lset-xor  lset-diff+intersection
           lset-union! lset-intersection! lset-difference! lset-xor! lset-diff+intersection!)
+
   (begin
     ;; check-arg used as primitive contract check throughout library
     (define-syntax check-arg
@@ -43,5 +45,30 @@
                     val
                     'pred?
                     'caller)))))))
+  (begin
+    (define-syntax :optional
+      (syntax-rules ()
+        ((_ v default) (if (null? v) default (car v))))))
+
+  (begin
+    ;; let-optionals used for some optional args
+    (define-syntax let-optionals
+      (syntax-rules ()
+        ((_ e ((v0 d0) (v* d*) ...) body ...)
+         (let* ((vs e)
+                (v0 (:optional vs d0))
+                (v  (if (null? vs) '() (cdr vs))))
+           (let-optionals v ((v* d*) ...) body ...)))
+        ((_ e () body ...) (let () body ...)))))
+
+  (begin
+    ;; receive from SRFI-8
+    (define-syntax receive
+      (syntax-rules ()
+        ((_ vars expr body0 body ...)
+         (call-with-values
+           (lambda () expr)
+           (lambda vars body0 body ...))))))
+
   (include "private/include/srfi-1.scm"))
 
