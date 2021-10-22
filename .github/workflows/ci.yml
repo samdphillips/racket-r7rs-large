@@ -1,0 +1,27 @@
+on:
+  push:
+  schedule:
+    - cron: "0 0 * * FRI"
+jobs:
+  test:
+    strategy:
+      matrix:
+        racket-version: ["stable", "current"]
+        platform: ["ubuntu-latest"]
+    runs-on: ${{ matrix.platform }}
+    steps:
+    - name: checkout
+      uses: actions/checkout@master
+    - name: install racket
+      uses: Bogdanp/setup-racket@v1.6.1
+      with:
+        architecture: 'x64'
+        distribution: 'full'
+        variant: 'CS'
+        version: ${{ matrix.racket-version }}
+    - name: install base package
+      run: raco pkg install --batch --auto ./r7rs-large
+    - name: install tests package
+      run: raco pkg install --batch --auto ./r7rs-large-tests
+    - name: run tests
+      run: raco test --drdr --package r7rs-large r7rs-large-tests
