@@ -224,6 +224,7 @@
 
 ;;; Make a list of length LEN.
 
+#;
 (define (make-list len . maybe-elt)
   (check-arg (lambda (n) (and (integer? n) (>= n 0))) len make-list)
   (let ((elt (cond ((null? maybe-elt) #f) ; Default value

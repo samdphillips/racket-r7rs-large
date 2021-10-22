@@ -2,7 +2,7 @@
 
 (define-library (scheme list)
   (import (scheme base))
-  (export xcons tree-copy #;make-list list-tabulate cons* list-copy
+  (export xcons tree-copy make-list list-tabulate cons* list-copy
           proper-list? circular-list? dotted-list? not-pair? null-list? list=
           circular-list length+
           iota
@@ -32,5 +32,16 @@
           lset<= lset= lset-adjoin
           lset-union  lset-intersection  lset-difference  lset-xor  lset-diff+intersection
           lset-union! lset-intersection! lset-difference! lset-xor! lset-diff+intersection!)
+  (begin
+    ;; check-arg used as primitive contract check throughout library
+    (define-syntax check-arg
+      (syntax-rules ()
+        ((_ pred? v caller)
+         (let ((val v))
+           (when (pred? val)
+             (error "Bad argument"
+                    val
+                    'pred?
+                    'caller)))))))
   (include "private/include/srfi-1.scm"))
 
