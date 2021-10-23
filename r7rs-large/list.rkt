@@ -3,7 +3,7 @@
 (define-library (scheme list)
   (import (scheme base)
           (scheme cxr))
-  (export xcons tree-copy make-list list-tabulate cons* list-copy
+  (export xcons make-list list-tabulate cons* list-copy
           proper-list? circular-list? dotted-list? not-pair? null-list? list=
           circular-list length+
           iota
@@ -33,6 +33,22 @@
           lset<= lset= lset-adjoin
           lset-union  lset-intersection  lset-difference  lset-xor  lset-diff+intersection
           lset-union! lset-intersection! lset-difference! lset-xor! lset-diff+intersection!)
+
+  (export cons pair? null? car cdr set-car! set-cdr!
+          list length append reverse list-ref
+          caaaar caaadr
+          caaar caadar
+          caaddr caadr
+          cadaar cadadr
+          cadar caddar
+          cadddr caddr
+          cdaaar cdaadr
+          cdaar cdadar
+          cdaddr cdadr
+          cddaar cddadr
+          cddar cdddar
+          cddddr cdddr
+          memq memv assq assv)
 
   (begin
     ;; check-arg used as primitive contract check throughout library

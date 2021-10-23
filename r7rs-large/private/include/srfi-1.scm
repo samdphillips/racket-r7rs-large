@@ -261,6 +261,7 @@
 
 ;;; (unfold not-pair? car cdr lis values)
 
+#;
 (define (list-copy lis)
   (let recur ((lis lis))
     (if (pair? lis)
