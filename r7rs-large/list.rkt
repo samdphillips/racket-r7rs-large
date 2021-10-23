@@ -56,7 +56,7 @@
       (syntax-rules ()
         ((_ pred? v caller)
          (let ((val v))
-           (when (pred? val)
+           (unless (pred? val)
              (error "Bad argument"
                     val
                     'pred?
