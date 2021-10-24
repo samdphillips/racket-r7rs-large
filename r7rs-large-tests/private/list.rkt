@@ -53,4 +53,26 @@
 
 (test (take '(a b c d e)  2) '(a b))
 (test (drop '(a b c d e)  2) '(c d e))
+(test (take '(1 2 3 . d) 2) '(1 2))
+(test (drop '(1 2 3 . d) 2) '(3 . d))
+(test (take '(1 2 3 . d) 3) '(1 2 3))
+(test (drop '(1 2 3 . d) 3) 'd)
+
+(test (take-right '(a b c d e) 2) '(d e))
+(test (drop-right '(a b c d e) 2) '(a b c))
+(test (take-right '(1 2 3 . d) 2) '(2 3 . d))
+(test (drop-right '(1 2 3 . d) 2) '(1))
+(test (take-right '(1 2 3 . d) 0) 'd)
+(test (drop-right '(1 2 3 . d) 0) '(1 2 3))
+
+(test-group "split-at"
+  (call-with-values
+    (lambda ()
+      (split-at '(a b c d e f g h) 3))
+    (lambda (x y)
+      (test x '(a b c))
+      (test y '(d e f g h)))))
+
+(test (last '(a b c)) 'c)
+(test (last-pair '(a b c)) '(c))
 
