@@ -4,6 +4,10 @@
         (scheme list)
         (r7rs-tests support))
 
+;;
+;; Constructors
+;;
+
 (test (cons 'a '())        '(a))
 (test (cons '(a) '(b c d)) '((a) b c d))
 (test (cons "a" '(b c))    '("a" b c))
@@ -32,6 +36,10 @@
 (test (iota 5) '(0 1 2 3 4))
 (test (iota 5 0 -1/10) '(0 -1/10 -2/10 -3/10 -4/10))
 
+;;
+;; Predicates
+;;
+
 (test (pair? '(a . b)) #t)
 (test (pair? '(a b c)) #t)
 (test (pair? '())      #f)
@@ -43,6 +51,10 @@
 (test-assert (list= eq? '(a)))
 (test-assert (list= = '(1 2 3) '(1 2 3)))
 (test-assert (list= eq? '(a b c) '(a b c)))
+
+;;
+;; Selectors
+;;
 
 (let ()
   (call-with-values
