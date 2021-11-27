@@ -146,3 +146,52 @@
 (test (last '(a b c)) 'c)
 (test (last-pair '(a b c)) '(c))
 
+;;
+;; Miscellaneous
+;;
+
+(test (length+ (circular-list 'z 'q)) #f)
+(test (length '(a b c)) (length+ '(a b c)))
+
+(test (append '(x) '(y))        '(x y))
+(test (append '(a) '(b c d))    '(a b c d))
+(test (append '(a (b)) '((c)))  '(a (b) (c)))
+(test (append '(a b) '(c . d))  '(a b c . d))
+(test (append '() 'a)           'a)
+(test (append '(x y))           '(x y))
+(test (append)                  '())
+
+(test (append! '(x) '(y))        '(x y))
+(test (append! '(a) '(b c d))    '(a b c d))
+(test (append! '(a (b)) '((c)))  '(a (b) (c)))
+(test (append! '(a b) '(c . d))  '(a b c . d))
+(test (append! '() 'a)           'a)
+(test (append! '(x y))           '(x y))
+(test (append!)                  '())
+
+(test (concatenate '((a b c) (d e f) (g h i))) '(a b c d e f g h i))
+(test (concatenate! '((a b c) (d e f) (g h i))) '(a b c d e f g h i))
+
+(test (reverse '(a b c)) '(c b a))
+(test (reverse '(a (b c) d (e (f)))) '((e (f)) d (b c) a))
+
+(test (reverse! '(a b c)) '(c b a))
+(test (reverse! '(a (b c) d (e (f)))) '((e (f)) d (b c) a))
+
+(test (zip '(one two three) '(1 2 3) '(odd even odd even odd even odd even))
+      '((one 1 odd) (two 2 even) (three 3 odd)))
+(test (zip '(1 2 3)) '((1) (2) (3)))
+(test (zip '(3 1 4 1) (circular-list #f #t)) '((3 #f) (1 #t) (4 #f) (1 #t)))
+
+(test-group "unzip2"
+  (call-with-values
+    (lambda ()
+      (unzip2 '((1 one) (2 two) (3 three))))
+    (lambda (x y)
+      (test x '(1 2 3))
+      (test y '(one two three)))))
+
+(test (count even? '(3 1 4 1 5 9 2 5 6)) 3)
+(test (count < '(1 2 4 8) '(2 4 6 8 10 12 14 16)) 3)
+(test (count < '(3 1 4 1) (circular-list 1 10)) 2)
+
